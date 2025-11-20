@@ -1,5 +1,7 @@
 #!/bin/bash
 
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+
 if [ -f .env ]; then
   source .env
 else
@@ -44,7 +46,7 @@ start_one_service() {
     echo "🚀 Iniciando el servicio '$service_name'..."
     cd "$project_dir" || { echo "❌ Error: No se pudo cambiar al directorio $project_dir"; return 1; }
     
-    nohup bash -c "$start_command" > "$log_file" 2>&1 &
+    nohup bash -c "$start_command" 2>&1 | "$SCRIPT_DIR/logger.sh" "$log_file" &
     echo $! > "$pid_file"
 
     echo "✅ Servicio '$service_name' iniciado."
