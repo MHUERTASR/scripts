@@ -46,7 +46,8 @@ start_one_service() {
     echo "🚀 Iniciando el servicio '$service_name'..."
     cd "$project_dir" || { echo "❌ Error: No se pudo cambiar al directorio $project_dir"; return 1; }
     
-    nohup bash -c "$start_command" 2>&1 | "$SCRIPT_DIR/logger.sh" "$log_file" &
+    # nohup bash -c "$start_command" 2>&1 | "$SCRIPT_DIR/logger.sh" "$log_file" &
+    nohup bash -c "$start_command" < /dev/null 2>&1 | "$SCRIPT_DIR/logger.sh" "$log_file" &
     echo $! > "$pid_file"
 
     echo "✅ Servicio '$service_name' iniciado."
