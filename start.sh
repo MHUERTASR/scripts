@@ -66,6 +66,8 @@ if [ -z "$1" ] || [ "$1" == "all" ]; then
     echo "------------------------------------------------"
     for id in $SERVICES; do
         start_one_service "$id"
+        echo "⏳ Esperando 2s antes del siguiente servicio..."
+        sleep 2
         echo "------------------------------------------------"
     done
     echo "✨ Proceso completado."
