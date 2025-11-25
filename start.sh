@@ -65,11 +65,16 @@ if [ -z "$1" ] || [ "$1" == "all" ]; then
     fi
     
     echo "------------------------------------------------"
+    count=0
+    total=$(echo $SERVICES | wc -w)
     for id in $SERVICES; do
         start_one_service "$id"
-        echo "⏳ Esperando 2s antes del siguiente servicio..."
-        sleep 2
-        echo "------------------------------------------------"
+        count=$((count + 1))
+        if [ $count -lt $total ]; then
+            echo "⏳ Esperando 2s antes del siguiente servicio..."
+            sleep 2
+            echo "------------------------------------------------"
+        fi
     done
     echo "✨ Proceso completado."
 else
